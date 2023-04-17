@@ -1,0 +1,16 @@
+class Solution:
+    def kthSmallestPrimeFraction(self, A: List[int], K: int) -> List[int]:
+        hip=[]
+        B=K
+        from heapq import heapify, heappush, heappop
+        for i,value in enumerate(A):
+            heappush(hip,(1/value,i,0,1,value))
+
+        while(B>0):
+            value,row,col,p,q=heappop(hip)
+            if col<len(A):
+                if row>col+1:
+                    heappush(hip, (A[col+1]/A[row], row, col+1, A[col+1], A[row]))
+            B-=1
+        return([p,q])
+        
